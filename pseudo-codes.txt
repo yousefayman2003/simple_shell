@@ -1,0 +1,82 @@
+function prompt_f():
+    _putchar_f('@')
+
+function _putchar_f(c):
+    return write(1, &c, 1)
+
+function print_error_f():
+    perror("Error: Couldn't allocate memory\n")
+    exit(EXIT_FAILURE)
+
+function tokenize_f(input, delimiter):
+    token_v = null
+    copy_v = allocate memory of size strlen(input) + 1
+    copy input into copy_v
+
+    while token_v != null:
+        tokens_v = reallocate tokens_v memory to (cnt_v + 1) * sizeof(char *)
+        allocate memory for tokens_v[cnt_v] of size strlen(token_v) + 1
+        copy token_v into tokens_v[cnt_v]
+        token_v = next token
+
+    reallocate tokens_v memory to (cnt_v + 1) * sizeof(char *)
+    tokens_v[cnt_v] = null
+    free copy_v
+    return tokens_v
+
+function read_f():
+    args_v = null
+    size_v = 1
+    str_v = allocate memory of size 1
+
+    while true:
+        num_chars_v = getline(&str_v, &size_v, stdin)
+
+        if size_v == 2:
+            str_v = "\\n"
+
+        if num_chars_v == -1:
+            free(str_v)
+            exit(EXIT_FAILURE)
+        else:
+            if str_v[num_chars_v - 1] == '\n':
+                str_v[num_chars_v - 1] = '\0'
+
+        args_v = tokenize_f(str_v, " ")
+        return args_v
+
+function execute_f(command, args, env):
+    id_v = fork()
+    if id_v == 0:
+        # Inside child process
+        execve(command, args, env)
+        # execve had an issue
+        perror("Error: Can't execute.")
+        exit(EXIT_FAILURE)
+    else if id_v == -1:
+        # Error while forking
+        perror("Error: Can't fork.")
+        exit(EXIT_FAILURE)
+    else:
+        # Inside parent process
+        wait(NULL)
+
+function main(argc, argv, env):
+    args_v = null
+
+    while true:
+        prompt_f()
+        args_v = read_f()
+
+        if args_v is null or _strcmp_f(args_v[0], "\\n") == 0:
+            free(args_v)
+            continue
+
+        if _strcmp_f(args_v[0], "exit") == 0:
+            break
+
+        execute_f(args_v[0], args_v, env)
+
+    return 0
+
+main()
