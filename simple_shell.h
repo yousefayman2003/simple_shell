@@ -15,9 +15,11 @@ void _puts_f(const char *str);
 int _strcmp_f(const char *s1, const char *s2);
 int _strlen_f(const char *s);
 char *_strcpy_f(char *dest, const char *src);
-void prompt_f(void);
+char *_strcat_f(char *dest, const char *src);
 char **read_f(void);
 char **tokenize_f(const char *input, const char *delimiter);
-void execute_f(const char *command, char **args, char **env);
+void prompt_f(void);
+void execute_f(const char *pathname, char **args, char **env);
+void print_error_f(void);
 
 #endif /* SIMPLE_SHELL_H */
