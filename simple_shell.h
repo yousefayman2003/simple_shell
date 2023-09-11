@@ -8,6 +8,7 @@
 #include<sys/wait.h>
 #include  <sys/types.h>
 #include <string.h>
+#include <sys/stat.h>
 
 /* declaring functions prototype*/
 int _putchar_f(char c);
