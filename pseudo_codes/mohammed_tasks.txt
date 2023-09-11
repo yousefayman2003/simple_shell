@@ -1,0 +1,18 @@
+# Name: Simple Shell 0.3
+# Description:
+	1- Handle the PATH
+	2- fork must not be called if the command doesn’t exist
+
+1- Pseudocode
+-------------
+function name: find_run_file
+location: execute_f.c
+
+- Declare string (token, exe_file, exe_dirs, str) variables
+- Invoke getenv func with "PATH" as a parameter and store the return value in exe_dirs
+- Invoke the strtok func with "exe_dirs" and ":" and store the return value in exe_file
+- While token not equal to NULL:
+	- concate "/" with exe_file
+	- concate pathname with exe_file
+	- try to execute the exe1_file
+- End
