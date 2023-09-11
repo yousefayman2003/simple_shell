@@ -11,7 +11,6 @@
 
 /* declaring functions prototype*/
 int _putchar_f(char c);
-void _puts_f(const char *str);
 int _strcmp_f(const char *s1, const char *s2);
 int _strlen_f(const char *s);
 char *_strcpy_f(char *dest, const char *src);
@@ -21,5 +20,6 @@ char **tokenize_f(const char *input, const char *delimiter);
 void prompt_f(void);
 void execute_f(const char *pathname, char **args, char **env);
 void print_error_f(void);
+void _puts_f(const char *str);
 
 #endif /* SIMPLE_SHELL_H */

@@ -14,7 +14,7 @@ int main(int argc, char **argv, char **env)
 	int terminal_v = 1;
 	(void)argc;
 	(void)argv;
-
+	
 	while (terminal_v)
 	{
 		/* Checks if input didnt come from terminal */
@@ -25,14 +25,11 @@ int main(int argc, char **argv, char **env)
 		args_v = read_f();
 		if (!args_v || _strcmp_f(args_v[0], "\\n") == 0)
 		{
-			free(args_v);
 			continue;
 		}
 		if (_strcmp_f(args_v[0], "exit") == 0)
-			break;
+			exit(EXIT_SUCCESS);
 		execute_f(args_v[0], args_v, env);
-		free(args_v);
-		
 	}
 	return (0);
 }
