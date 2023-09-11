@@ -10,6 +10,12 @@
 #include <string.h>
 #include <sys/stat.h>
 
+/* define macros */
+#define env environ
+
+/* export global vaiables */
+extern char **environ;
+
 /* declaring functions prototype*/
 int _putchar_f(char c);
 int _strcmp_f(const char *s1, const char *s2);
@@ -22,5 +28,6 @@ void prompt_f(void);
 void execute_f(const char *pathname, char **args, char **env);
 void print_error_f(void);
 void _puts_f(const char *str);
+void print_error2_f(char *str, int stat);
 
 #endif /* SIMPLE_SHELL_H */

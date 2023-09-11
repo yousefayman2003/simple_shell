@@ -1,6 +1,6 @@
 #include "simple_shell.h"
 
-int find_run_file(const char *, char **, char **, char **, char **);
+int find_run_file(const char *, char **, char **, char **);
 
 /**
  * main - basic shell program
@@ -10,14 +10,12 @@ int find_run_file(const char *, char **, char **, char **, char **);
  *
  * Return: 0 if success else faliure
 */
-int main(int argc, char **argv, char **env)
+int main()
 {
 	char **args_v, *exe_file, *exe_dirs;
 	int terminal_v = 1;
 	struct stat st;
-	(void)argc;
-	(void)argv;
-	
+
 	while (terminal_v)
 	{
 		/* Checks if input didnt come from terminal */
@@ -36,11 +34,9 @@ int main(int argc, char **argv, char **env)
 		if (stat(args_v[0], &st) == 0)
 			execute_f(args_v[0], args_v, env);
 		/* Search about an execution file (command) and run it */
-		if (find_run_file(args_v[0], args_v, env, &exe_file, &exe_dirs) == -1)
-		{
-			perror("Command not found");
-			exit(1);
-		}
+		if (find_run_file(args_v[0], args_v, &exe_file, &exe_dirs) == -1)
+			print_error2_f(args_v[0], 127);
+
 		free(exe_file);
 		free(exe_dirs);
 	}
@@ -62,7 +58,7 @@ int main(int argc, char **argv, char **env)
  *	- 0 if we find the file
  *	- -1 if we don't find the file
  */
-int find_run_file(const char *pathname, char **argv, char **env, char **exe_file, char **exe_dirs)
+int find_run_file(const char *pathname, char **argv,  char **exe_file, char **exe_dirs)
 {
         char *str, *token;
         int pathname_len = _strlen_f(pathname);
@@ -99,7 +95,6 @@ int find_run_file(const char *pathname, char **argv, char **env, char **exe_file
 		}
 
                 token = strtok(NULL, ":");
-                free(*exe_file);
         }
 	/* return -1 because we didn't find the executable file */
 	return (-1);
