@@ -1,6 +1,5 @@
 #include "simple_shell.h"
 
-
 /**
  * main - basic shell program
  * @argc: argument count
@@ -12,11 +11,17 @@
 int main(int argc, char **argv, char **env)
 {
 	char **args_v;
+	int terminal_v = 1;
 	(void)argc;
 	(void)argv;
-	while (1)
+
+	while (terminal_v)
 	{
-		prompt_f();
+		/* Checks if input didnt come from terminal */
+                if (isatty(STDIN_FILENO) == 0)
+			terminal_v = 0;
+                if (terminal_v)
+			prompt_f();
 		args_v = read_f();
 		if (!args_v || _strcmp_f(args_v[0], "\\n") == 0)
 		{
@@ -26,7 +31,8 @@ int main(int argc, char **argv, char **env)
 		if (_strcmp_f(args_v[0], "exit") == 0)
 			break;
 		execute_f(args_v[0], args_v, env);
+		free(args_v);
+		
 	}
-
 	return (0);
 }

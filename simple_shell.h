@@ -11,6 +11,7 @@
 
 /* declaring functions prototype*/
 int _putchar_f(char c);
+void _puts_f(const char *str);
 int _strcmp_f(const char *s1, const char *s2);
 int _strlen_f(const char *s);
 char *_strcpy_f(char *dest, const char *src);

@@ -22,7 +22,7 @@ void execute_f(const char *command, char **args, char **env)
 		execve(command, args, env);
 
 		/* execve had an issue */
-		perror("Error: Can't execute.");
+		perror("Error (execve)");
 		exit(EXIT_FAILURE);
 	}
 	else if (id_v == -1)

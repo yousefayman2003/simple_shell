@@ -5,5 +5,5 @@
 */
 void prompt_f(void)
 {
-	_putchar_f('@');
+	_puts_f("@ ");
 }

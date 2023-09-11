@@ -83,6 +83,7 @@ char **read_f(void)
 	}
 	if (num_chars_v == -1)
 	{
+		perror("Error read");
 		free(str_v);
 		exit(EXIT_FAILURE);
 	}
@@ -98,5 +99,6 @@ char **read_f(void)
 	/* call the tokenize helper function to split */
 	 /* string values by " " aand store them in an array */
 	args_v = tokenize_f(str_v, " ");
+	free(str_v);
 	return (args_v);
 }
