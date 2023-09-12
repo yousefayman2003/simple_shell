@@ -15,6 +15,9 @@ char *_strcat_f(char *dest, const char *src)
 {
 	int lchar, i = 0;
 
+	if (src == NULL)
+		return (dest);
+
 	lchar = _strlen_f(dest);
 
 	while (src[i] != '\0')

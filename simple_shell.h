@@ -25,9 +25,10 @@ char *_strcat_f(char *dest, const char *src);
 char **read_f(void);
 char **tokenize_f(const char *input, const char *delimiter);
 void prompt_f(void);
-void execute_f(const char *pathname, char **args, char **env);
+void execute_f(const char *pathname, char ***args);
 void print_error_f(void);
 void _puts_f(const char *str);
 void print_error2_f(char *str, int stat);
+void _env_f();
 
 #endif /* SIMPLE_SHELL_H */

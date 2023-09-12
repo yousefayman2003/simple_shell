@@ -3,9 +3,8 @@
 
 /**
  * execute_f - Executes a command with the given arguments.
- * @command: The command to execute.
- * @args: array of arguments for the command.
- * @env: array of environment variables
+ * @pathname_v: The command to execute.
+ * @args_v: array of arguments for the command.
  *
  * This function creates a new process using fork()
  * and replaces the child process with the specified command
@@ -13,14 +12,14 @@
  * for the child process to complete. Error handling is performed
  * for fork() and execve() failures.
  */
-void execute_f(const char *pathname, char **args, char **env)
+void execute_f(const char *pathname_v, char ***args_v)
 {	
 	pid_t id_v = fork();
 
 	if (id_v == 0)
 	{
 		/* Try to execute with given path name */
-		execve(pathname, args, env);
+		execve(pathname_v, *args_v, env);
 	}
 	else if (id_v == -1)
 	{
