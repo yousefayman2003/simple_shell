@@ -67,7 +67,7 @@ char **read_f(char **input)
 	}
 	if (num_chars_v == -1)
 	{
-		free(input);
+		free(*input);
 		write(STDIN_FILENO, "exit\n", 6);
 		exit(EXIT_FAILURE);
 	}
