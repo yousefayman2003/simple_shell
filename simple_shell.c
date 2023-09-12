@@ -10,8 +10,8 @@
 */
 int main()
 {
-	char **args_v, *exe_file_v, *input = NULL;
-	int terminal_v = 1, file_stat_v;
+	char **args_v, *input;
+	int terminal_v = 1;
 	
 	while (terminal_v)
 	{
@@ -25,16 +25,9 @@ int main()
 			prompt_f();
 
 		/* read and parse the user command */
+		input = NULL;
 		args_v = read_f(&input);
 
-		/* run the command if it's valid or print an error */
-		file_stat_v = find_run_file_f(&args_v, &exe_file_v);
-		if (file_stat_v == -1)
-			print_error2_f(args_v[0], 127);
-		else if (file_stat_v == 0)
-			continue;
-		else
-			free(exe_file_v);
 		free_grid_f(args_v);
 		free(input);
 	}

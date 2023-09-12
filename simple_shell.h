@@ -20,7 +20,6 @@ extern char **environ;
 int _putchar_f(char c);
 int _strcmp_f(const char *s1, const char *s2);
 int _strlen_f(const char *s);
-int find_run_file_f(char ***argv_v, char **exe_file);
 char *_strcpy_f(char *dest, const char *src);
 char *_strcat_f(char *dest, const char *src);
 char **read_f(char **input);
