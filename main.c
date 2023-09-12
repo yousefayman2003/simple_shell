@@ -12,7 +12,7 @@ int find_run_file(const char *, char **, char **, char **);
 */
 int main()
 {
-	char **args_v, *exe_file, *exe_dirs;
+	char *exe_file, *exe_dirs, *input = NULL, **args_v;
 	int terminal_v = 1;
 	struct stat st;
 
@@ -23,7 +23,8 @@ int main()
 			terminal_v = 0;
                 if (terminal_v)
 			prompt_f();
-		args_v = read_f();
+		args_v = read_f(&input);
+
 		if (!args_v || _strcmp_f(args_v[0], "\\n") == 0)
 			continue;
 
@@ -36,9 +37,11 @@ int main()
 		/* Search about an execution file (command) and run it */
 		if (find_run_file(args_v[0], args_v, &exe_file, &exe_dirs) == -1)
 			print_error2_f(args_v[0], 127);
-
+		
+		free(input);
 		free(exe_file);
 		free(exe_dirs);
+		free_grid_f(args_v);
 	}
 	return (0);
 }

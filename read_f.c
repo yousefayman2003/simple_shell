@@ -12,6 +12,7 @@ char **tokenize_f(const char *input, const char *delimiter)
 	char *token_v,  *copy_v;
 	char **tokens_v = NULL;
 	int cnt_v = 0;
+
 	/* Allocate memory for copy */
 	copy_v = malloc(sizeof(char) * (_strlen_f(input) + 1));
 	if (!copy_v)
@@ -50,45 +51,36 @@ char **tokenize_f(const char *input, const char *delimiter)
  *
  * Return: input string.
 */
-char **read_f(void)
+char **read_f(char **input)
 {
 	char **args_v = NULL;
 	int num_chars_v;
 	/* Ignoring size of buffer */
-	size_t size_v = 1;
-	/* Allocating memory for our string */
-	char *str_v = malloc(sizeof(char) * size_v);
-
-	if (!str_v)
-	{
-		perror("Error: Couldn't allocate memory\n");
-		exit(EXIT_FAILURE);
-	}
+	size_t size_v = 2;
 	/* get input from standard input*/
-	num_chars_v = getline(&str_v, &size_v, stdin);
-	
+	num_chars_v = getline(input, &size_v, stdin);
+
 	/* check if the user enters \n */
 	if (size_v == 2)
 	{
-		str_v = "\\n";
+		*input = "\\n";
 	}
 	if (num_chars_v == -1)
 	{
-		free(str_v);
+		free(input);
 		write(STDIN_FILENO, "exit\n", 6);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		/* if string ends with `\n` replace it with null terminate. */
-		if (str_v[num_chars_v - 1] == '\n')
+		if ((*input)[num_chars_v - 1] == '\n')
 		{
-			str_v[num_chars_v - 1] = '\0';
+			(*input)[num_chars_v - 1] = '\0';
 		}
 	}
-
 	/* call the tokenize helper function to split */
 	 /* string values by " " aand store them in an array */
-	args_v = tokenize_f(str_v, " ");
+	args_v = tokenize_f(*input, " ");
 	return (args_v);
 }
