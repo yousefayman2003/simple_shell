@@ -22,14 +22,11 @@ int _strcmp_f(const char *s1, const char *s2);
 int _strlen_f(const char *s);
 char *_strcpy_f(char *dest, const char *src);
 char *_strcat_f(char *dest, const char *src);
-char **read_f(char **input);
-char **tokenize_f(const char *input, const char *delimiter);
 void prompt_f(void);
-void execute_f(const char *pathname, char ***args);
-void print_error_f(void);
+void read_f(void);
+void execute_f(const char *pathname, char **args);
 void _puts_f(const char *str);
-void print_error2_f(char *str, int stat);
+void print_error_f(char *str, int stat);
 void _env_f();
-void free_grid_f(char **array);
 
 #endif /* SIMPLE_SHELL_H */

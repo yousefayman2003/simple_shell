@@ -1,0 +1,14 @@
+Task Desription:
+	- Implement the env built-in, that prints the current environment
+
+
+Pseudocode
+----------
+function name: _env_f
+location: _env_f.c
+description: print the environment variables of the user
+
+Steps:
+	- export the global variable environ (array of strings)
+	- for each string in environ
+		- print it

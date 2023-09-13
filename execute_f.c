@@ -12,14 +12,14 @@
  * for the child process to complete. Error handling is performed
  * for fork() and execve() failures.
  */
-void execute_f(const char *pathname_v, char ***args_v)
+void execute_f(const char *pathname_v, char **args_v)
 {	
 	pid_t id_v = fork();
 
 	if (id_v == 0)
 	{
 		/* Try to execute with given path name */
-		execve(pathname_v, *args_v, env);
+		execve(pathname_v, args_v, env);
 	}
 	else if (id_v == -1)
 	{

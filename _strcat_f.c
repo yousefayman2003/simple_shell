@@ -26,6 +26,8 @@ char *_strcat_f(char *dest, const char *src)
 		i++;
 		lchar++;
 	}
+	
+	dest[lchar] = '\0';
 
 	return (dest);
 }

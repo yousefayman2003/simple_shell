@@ -10,7 +10,6 @@
 */
 int main()
 {
-	char **args_v, *input;
 	int terminal_v = 1;
 	
 	while (terminal_v)
@@ -25,11 +24,7 @@ int main()
 			prompt_f();
 
 		/* read and parse the user command */
-		input = NULL;
-		args_v = read_f(&input);
-
-		free_grid_f(args_v);
-		free(input);
+		read_f();
 	}
 	return (0);
 }
