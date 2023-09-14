@@ -30,6 +30,7 @@ void execute_f(const char *pathname, char **args);
 void _puts_f(const char *str);
 void print_error_f(char *str, int stat);
 void _env_f();
+void _exit_f(char ***tokens_v, int cnt_v);
 ssize_t _getline_f(char **lineptr, size_t *n, int stream);
 
 #endif /* SIMPLE_SHELL_H */

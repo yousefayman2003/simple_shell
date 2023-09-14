@@ -140,3 +140,36 @@ Steps:
 	   d. Increment the s pointer to the next character in the string.
 	4. Continue the loop until *s is the null terminator '\0'.
 	5. Return the result of num multiplied by sign.
+
+
+Pseudocode
+----------	
+function name: _exit_f
+location: _exit_f.c
+
+description: Executes the exit command with the given arguments, exiting the program with the specified exit value.
+
+Steps:
+1. Declare a character array 'copy' with a size of 256.
+2. Declare a character variable 'value'.
+3. If the number of tokens 'cnt_v' is 2:
+   a. Copy the second token from '(*tokens_v)' to 'copy' using _strcpy_f.
+   b. Convert the copied string in 'copy' to an integer and assign it to 'value' using _atoi_f.
+   c. Free the memory allocated for tokens using free_tokens2_f.
+   d. If 'value' is equal to -1:
+      i. Print an error message for 'copy' using print_error_f with error code 3.
+      ii. Exit the program with a success status using exit(EXIT_SUCCESS).
+   e. Exit the program with 'value' as the exit value.
+4. Else if the number of tokens 'cnt_v' is greater than 2:
+   a. Copy the second token from '(*tokens_v)' to 'copy' using _strcpy_f.
+   b. Convert the copied string in 'copy' to an integer and assign it to 'value' using _atoi_f.
+   c. Print "exit" using _puts_f.
+   d. If 'value' is not equal to -1:
+      i. Print an error message for "exit" using print_error_f with error code 2.
+   e. Else if 'value' is equal to -1:
+      i. Free the memory allocated for tokens using free_tokens2_f.
+      ii. Print an error message for 'copy' using print_error_f with error code 3.
+      iii. Exit the program with a success status using exit(EXIT_SUCCESS).
+5. Else:
+   a. Free the memory allocated for tokens using free_tokens2_f.
+   b. Exit the program with a success status using exit(EXIT_SUCCESS).

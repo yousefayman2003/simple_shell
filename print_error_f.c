@@ -15,6 +15,19 @@ void print_error_f(char *str, int stat)
 			pstr_err("simple_shell: ");
 			pstr_err(str);
 			pstr_err(": command not found\n");
+			break;
+		case 2:
+			 pstr_err("simple_shell: ");
+			 pstr_err(str);
+			 pstr_err(": too many arguments\n");
+			 break;
+		case 3:
+			 pstr_err("simple_shell: ");
+			 pstr_err("exit: ");
+                         pstr_err(str);
+			 pstr_err(": numeric argument required\n");
+			 break;
+
 	}
 	
 }

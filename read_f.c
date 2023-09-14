@@ -34,8 +34,7 @@ void read_f()
 	else if (num_chars_v > 1)
 	{
 		/* call the tokenize helper function to split 
-	 	* string values by " " aand store them in an args_v 
-	 	*/
+	 	* string values by " " aand store them in an args_v */
 		tokenize_f(" ");
 		free(input_v);
 
@@ -48,7 +47,7 @@ void read_f()
 		}
 		_strcpy_f(pathname_v, tokens_v[0]);
 
-		/* run the command if it's valid or print an error */ 
+		/* run the command if it's valid or print an error */
 		file_stat_v = fcheck_run_f();
 		if (file_stat_v == -1)
 			print_error_f(pathname_v, 127);
@@ -98,6 +97,15 @@ void tokenize_f(const char *delimiter)
 		token_v = strtok(NULL, delimiter);
 		cnt_v++;
 	}
+	/* Reallocate memory for tokens to terminate array with null */
+	tokens_v = realloc(tokens_v, (cnt_v + 1) * sizeof(char *));
+	 if (!tokens_v)
+	{
+		free(input_v);
+		free_tokens_f();
+		print_error_f("", 1);
+	}
+	tokens_v[cnt_v] = NULL;
 }
 
 
@@ -122,24 +130,8 @@ int fcheck_run_f()
 	/* when the user write exit, exit the shell */
         else if (_strcmp_f(pathname_v, "exit") == 0)
 	{
-                if (cnt_v == 2)
-                {
-			char copy[128];
-
-			_strcpy_f(copy, tokens_v[1]);
-			free_tokens_f();
-                        exit(_atoi_f(copy));
-                }
-		else if (cnt_v > 2)
-		{
-			free_tokens_f();
-			_puts_f("exit\n");
-		}
-		else
-		{
-			free_tokens_f();
-			exit(EXIT_SUCCESS);
-		}
+                _exit_f(&tokens_v, cnt_v);
+		return(0);
 	}
 	/* when the user write env, print the enviroment variables */
 	else if (_strcmp_f(pathname_v, "env") == 0)

@@ -7,16 +7,21 @@
 */
 int _atoi_f(char *s)
 {
-	unsigned int num = 0;
-	int sign = 1;
-	do {
+	unsigned int num_v = 0;
+	int sign_v = 1;
+	int non_numeric_flag_v = 0;
+	while (*s)
+	{
 		if (*s == '-')
-			sign *= -1;
+			sign_v *= -1;
 		else if (*s >= '0' && *s <= '9')
-			num = (num * 10) + (*s - '0');
-		else if (num > 0)
-			break;
-	} while (*s++);
+			num_v = (num_v * 10) + (*s - '0');
+		else
+			non_numeric_flag_v = 1;
+		s++;
+	}
+	if (non_numeric_flag_v)
+		return (-1);
 
-	return (num * sign);
+	return (num_v * sign_v);
 }
