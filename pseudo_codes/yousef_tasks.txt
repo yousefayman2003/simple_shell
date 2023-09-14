@@ -1,82 +1,142 @@
-function prompt_f():
-    _putchar_f('@')
+# Tasks Description:
+	1. Write a UNIX command line interpreter.
+		Your Shell should:
+			- Display a prompt and wait for the user to type a command. A command line always ends with a new line.
+			- The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
+			- The command lines are made only of one word. No arguments will be passed to programs.
+			- If an executable cannot be found, print an error message and display the prompt again.
+			- Handle errors.
+			- You have to handle the “end of file” condition (Ctrl+D).
+	2. Handle command lines with arguments.
+	3. Implement the exit built-in, that exits the shell.
+	4. Write your own getline function.
+	5. handle arguments for the built-in exit
+		
+	
+Pseudocode
+----------	
+function name: _putchar_f
+location: _putchar_f.c file
+description: writes the character c to stdout
 
-function _putchar_f(c):
-    return write(1, &c, 1)
+Steps:
+	- Write a given character to standard output (stdout).
 
-function print_error_f():
-    perror("Error: Couldn't allocate memory\n")
-    exit(EXIT_FAILURE)
 
-function tokenize_f(input, delimiter):
-    token_v = null
-    copy_v = allocate memory of size strlen(input) + 1
-    copy input into copy_v
+Pseudocode
+----------	
+function name: _putchar_f
+location: _putchar_f.c file
+description: writes a string to stdout
 
-    while token_v != null:
-        tokens_v = reallocate tokens_v memory to (cnt_v + 1) * sizeof(char *)
-        allocate memory for tokens_v[cnt_v] of size strlen(token_v) + 1
-        copy token_v into tokens_v[cnt_v]
-        token_v = next token
+Steps:
+	1. Start a loop while the current character pointed by str is not the null terminator '\0':
+		a. Print the current character using the `_putchar_f` function.
+		b. Increment the str pointer to the next character in the string.
+	2. End of loop
+	
+	
+Pseudocode
+----------	
+function name: prompt_f
+location: prompt_f.c file
+description: prints @ to standard output.
 
-    reallocate tokens_v memory to (cnt_v + 1) * sizeof(char *)
-    tokens_v[cnt_v] = null
-    free copy_v
-    return tokens_v
+Steps:
+	- invokes _puts_f function given "@ " as an argument.
 
-function read_f():
-    args_v = null
-    size_v = 1
-    str_v = allocate memory of size 1
 
-    while true:
-        num_chars_v = getline(&str_v, &size_v, stdin)
+Pseudocode
+----------	
+function name: tokenize_f
+location: read_f.c file
+description: tokenize a string with a specific delimiter
 
-        if size_v == 2:
-            str_v = "\\n"
+Steps:
+		1. Declare variables: token_v (char pointer).
+		2. Set cnt_v variable to 0.
+		3. Tokenize the copied string using strtok function with input_v and delimiter.
+		4. Initialize tokens_v variable to NULL.
+		5. Start a loop while token_v is not NULL:
+		   a. Reallocate memory for tokens_v to accommodate the new token (cnt_v + 1) * sizeof(char *).
+		   b. If the memory allocation fails, free input_v, free tokens_v, and print an error message.
+		   c. Allocate memory for tokens_v[cnt_v] to store the token (strlen(token_v) + 1) * sizeof(char).
+		   d. If the memory allocation fails, free input_v, free tokens_v, and print an error message.
+		   e. Copy the token string to tokens_v[cnt_v] using _strcpy_f function.
+		   f. Update token_v using strtok function with NULL and delimiter to get the next token.
+		   g. Increment cnt_v by 1.
+		6. End of loop.
 
-        if num_chars_v == -1:
-            free(str_v)
-            exit(EXIT_FAILURE)
-        else:
-            if str_v[num_chars_v - 1] == '\n':
-                str_v[num_chars_v - 1] = '\0'
 
-        args_v = tokenize_f(str_v, " ")
-        return args_v
+Pseudocode
+----------	
+function name: execute_f
+location: execute_f.c file
+description: Executes a command with the given arguments.
 
-function execute_f(command, args, env):
-    id_v = fork()
-    if id_v == 0:
-        # Inside child process
-        execve(command, args, env)
-        # execve had an issue
-        perror("Error: Can't execute.")
-        exit(EXIT_FAILURE)
-    else if id_v == -1:
-        # Error while forking
-        perror("Error: Can't fork.")
-        exit(EXIT_FAILURE)
-    else:
-        # Inside parent process
-        wait(NULL)
+Steps:
+	1. Declare a variable id_v of type pid_t.
+	2. Fork a new process using fork() and assign the return value to id_v.
+	3. Check if id_v is 0, indicating that this code is running in the child process:
+	   a. Attempt to execute the command with the given path name and arguments using execve().
+	4. If id_v is -1, an error occurred while forking:
+	   a. Print an error message using perror().
+	   b. Exit the program with a failure status using exit(EXIT_FAILURE).
+	5. Otherwise, id_v is positive, indicating that this code is running in the parent process:
+	   a. Wait for the child process to complete using wait(NULL).
+	6. End of function.
+	
+	
+Pseudocode
+----------	
+function name: _getline_f
+location: _getline_f.c file
+description: Function: _getline_f
+Description: Reads an entire line from a stream with error handling and dynamic resizing of the buffer.
 
-function main(argc, argv, env):
-    args_v = null
+Steps:
+	1. Declare variables: bytes_read_v (int), i (int), j (int).
+	2. Check if *n is 0 or *lineptr is NULL:
+	   a. If true, allocate memory for *lineptr with initial size BUFFER_SIZE.
+	   b. If the allocation fails, return -1 to indicate a memory allocation error.
+	3. Start an infinite loop:
+	   a. Check if j is greater than or equal to bytes_read_v.
+		  - If true, read data from the stream into buffer_v with a constant buffer size of BUFFER_SIZE.
+		  - Reset j to 0.
+	   b. Check if bytes_read_v is 0 or -1.
+		  - If true, return -1 to indicate an error or EOF.
+	   c. Check if i is greater than *n.
+		  - If true, increase the size of *lineptr by BUFFER_SIZE using realloc().
+		  - If the reallocation fails, return -1 to indicate a memory allocation error.
+	   d. Check if buffer_v[j] is the newline character '\n'.
+		  - If true, replace buffer_v[j] with the null terminator '\0'.
+		  - Increment i by 1 to include the null terminator.
+		  - Increment j by 1.
+		  - Break the loop.
+	   e. Copy data from buffer_v[j] to (*lineptr)[i].
+	   f. Increment i by 1.
+	   g. Increment j by 1.
+	4. Check if i is 0 or bytes_read_v is 0.
+	   - If true, return -1 to indicate no characters read or EOF.
+	5. Return i - 1, the number of characters read excluding the null terminator.
+		
+	
+Pseudocode
+----------	
+function name: _atoi_f
+location: _atoi_f.c file
+description: Convert a string to an integer.
 
-    while true:
-        prompt_f()
-        args_v = read_f()
-
-        if args_v is null or _strcmp_f(args_v[0], "\\n") == 0:
-            free(args_v)
-            continue
-
-        if _strcmp_f(args_v[0], "exit") == 0:
-            break
-
-        execute_f(args_v[0], args_v, env)
-
-    return 0
-
-main()
+Steps:
+	1. Declare variables: num (unsigned int), sign (int).
+	2. Set num to 0 and sign to 1.
+	3. Start a do-while loop:
+	   a. Check if the current character pointed by s is '-'.
+		  - If true, multiply sign by -1 to toggle the sign.
+	   b. Check if the current character pointed by s is a digit between '0' and '9'.
+		  - If true, update num by multiplying it by 10 and adding the numeric value of the current digit.
+	   c. Check if num is greater than 0.
+		  - If true, break the loop to stop parsing further characters.
+	   d. Increment the s pointer to the next character in the string.
+	4. Continue the loop until *s is the null terminator '\0'.
+	5. Return the result of num multiplied by sign.
