@@ -24,7 +24,6 @@ int _strlen_f(const char *s);
 int _atoi_f(char *s);
 char *_strcpy_f(char *dest, const char *src);
 char *_strcat_f(char *dest, const char *src);
-void _strcpy2_f(char *dest[], char *src);
 void prompt_f(void);
 void read_f(void);
 void execute_f(const char *pathname, char **args);
