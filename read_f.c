@@ -9,8 +9,7 @@ void free_tokens_f();
 /* global variables */
 char *input_v, pathname_v[1024];
 char **tokens_v;
-int pathname_len_v, cnt_v;
-
+int pathname_len_v, cnt_v, i = 0;
 
 
 /**
@@ -20,11 +19,11 @@ int pathname_len_v, cnt_v;
 void read_f()
 {
 	int num_chars_v, file_stat_v;
-	size_t size_v;
+	size_t size_v = 0;
 	
 	/* get input from standard input*/
 	input_v = NULL;
-	num_chars_v = getline(&input_v, &size_v, stdin);
+	num_chars_v = _getline_f(&input_v, &size_v, STDIN_FILENO);
 
 	if (num_chars_v == -1)
 	{
@@ -34,10 +33,6 @@ void read_f()
 	}
 	else if (num_chars_v > 1)
 	{
-		/* if string ends with `\n` replace it with null terminate. */
-		if (input_v[num_chars_v - 1] == '\n')
-			input_v[num_chars_v - 1] = '\0';
-
 		/* call the tokenize helper function to split 
 	 	* string values by " " aand store them in an args_v 
 	 	*/
@@ -87,13 +82,15 @@ void tokenize_f(const char *delimiter)
 		tokens_v = realloc(tokens_v, (cnt_v + 1) * sizeof(char *));
 		if (!tokens_v)
 		{
-			free(input_v); free_tokens_f();
+			free(input_v);
+		       	free_tokens_f();
 			print_error_f("", 1);
 		}
 		/* Allocate memory for token */
 		tokens_v[cnt_v] = malloc(sizeof(char) * (_strlen_f(token_v) + 1));
 		if (!tokens_v[cnt_v])
-		{	free(input_v); free_tokens_f();
+		{	free(input_v);
+		       	free_tokens_f();
 			print_error_f("", 1);
 		}
 		/* Copying the token string */
@@ -116,7 +113,7 @@ int fcheck_run_f()
 {
         struct stat sb_v;
 
-        /* run a file (command) if the user write its right absolute path */
+	/* run a file (command) if the user write its right absolute path */
         if (stat(pathname_v, &sb_v) == 0)
         {
                 execute_f(pathname_v, tokens_v);
@@ -125,8 +122,24 @@ int fcheck_run_f()
 	/* when the user write exit, exit the shell */
         else if (_strcmp_f(pathname_v, "exit") == 0)
 	{
-		free_tokens_f();
-		exit(EXIT_SUCCESS);
+                if (cnt_v == 2)
+                {
+			char copy[128];
+
+			_strcpy_f(copy, tokens_v[1]);
+			free_tokens_f();
+                        exit(_atoi_f(copy));
+                }
+		else if (cnt_v > 2)
+		{
+			free_tokens_f();
+			_puts_f("exit\n");
+		}
+		else
+		{
+			free_tokens_f();
+			exit(EXIT_SUCCESS);
+		}
 	}
 	/* when the user write env, print the enviroment variables */
 	else if (_strcmp_f(pathname_v, "env") == 0)
@@ -135,8 +148,7 @@ int fcheck_run_f()
 		return (0);
 	}
 	/* search about the exe file of a command and run it if it's found */
-        else
-		return (fsearch_run_f());
+	return (fsearch_run_f());
 }
 
 
