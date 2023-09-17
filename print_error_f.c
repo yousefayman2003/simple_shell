@@ -27,9 +27,18 @@ void print_error_f(char *str, int stat)
                          pstr_err(str);
 			 pstr_err(": numeric argument required\n");
 			 break;
-
+		case 4:
+			 pstr_err("simple_shell: ");
+			 pstr_err(str);
+			 pstr_err(": OLDPWD not set\n");
+			 break;
+		case 5:
+			 pstr_err("simple_shell: ");
+			 pstr_err("cd: ");
+			 pstr_err(str);
+			 pstr_err(": No such file or directory\n");
+			 break;
 	}
-	
 }
 
 int pchar_err(char c)

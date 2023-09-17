@@ -10,7 +10,10 @@
 	2. Handle command lines with arguments.
 	3. Implement the exit built-in, that exits the shell.
 	4. Write your own getline function.
-	5. handle arguments for the built-in exit
+	5. Handle arguments for the built-in exit.
+	6. Implement the builtin command cd.
+	7. Handle variables replacement.
+		
 		
 	
 Pseudocode
@@ -172,4 +175,144 @@ Steps:
       iii. Exit the program with a success status using exit(EXIT_SUCCESS).
 5. Else:
    a. Free the memory allocated for tokens using free_tokens2_f.
-   b. Exit the program with a success status using exit(EXIT_SUCCESS).
+   b. Exit the program with a success status using exit(EXIT_SUCCESS).i
+
+
+Pseudocode
+----------	
+function name: _cd_f
+location: _cd_f.c
+
+description: Changes the current directory of the process based on the provided arguments.
+
+Steps:
+1. Declare a character pointer 'path_v' and a character pointer 'buf_v'.
+2. Declare a size_t variable 'buf_size_v' and initialize it to 512.
+3. If the number of arguments 'size' is 1:
+   a. Set 'path_v' to the value of the HOME environment variable.
+4. Else if the number of arguments 'size' is 2:
+   a. Set 'path_v' to the second argument from '(*args)'.
+   b. If 'path_v' is equal to "-", set 'path_v' to the value of the OLDPWD environment variable.
+      i. If 'path_v' is NULL:
+         - Print an error message for "cd" using print_error_f with error code 4.
+         - Return from the function.
+5. Else (if more than 1 argument is passed):
+   a. Print an error message for "cd" using print_error_f with error code 2.
+   b. Return from the function.
+6. Start a loop:
+   a. Allocate memory for 'buf_v' with a size of 'buf_size_v' characters.
+   b. If memory allocation fails:
+      - Print an error message for "cd" using print_error_f with error code 1.
+   c. Increase 'buf_size_v' by 100.
+   d. Continue the loop if getcwd(buf_v, buf_size_v) returns NULL.
+7. Set the value of the OLDPWD environment variable to 'buf_v' using setenv("OLDPWD", buf_v, 1).
+   - If an error occurs, print an error message using perror().
+8. Change the current directory to 'path_v' using chdir().
+   - If an error occurs, print an error message for 'path_v' using print_error_f with error code 5 and free  memory allocated for `buf_v` then return from the function.
+9. Set the value of the PWD environment variable to current working directory using setenv("PWD", getcwd(buf_v, buf_size_v), 1).
+   - If an error occurs, print an error message using perror().
+10. Free the memory allocated for 'buf_v'.
+
+
+Pseudocode
+----------	
+function name: numberlen_f
+location: _atoa_f.c file
+description: Gets the length of a given number.
+
+Steps:
+  1. Declare variables: i_v (int) and initialize it to 0.
+  2. Start a while loop:
+     a. Check if num is not equal to 0.
+        - If true, divide num by 10 and assign the result back to num.
+        - Increment i_v by 1.
+  3. Return the value of i_v as the length of num.
+  
+  
+Pseudocode
+----------
+function name: rev_string_f
+location: _atoa_f.c file
+description: Reverse a given string.
+
+Steps:
+  1. Declare variables: l (int), i (int), tmp (char).
+  2. Initialize l to 0.
+  3. Iterate through the string s until the null terminator '\0' is encountered:
+     a. Increment l by 1 for each character in s.
+  4. Iterate from 0 to l / 2 (exclusive) using i:
+     a. Swap the character at index i in s with the character at index (l - i - 1) in s using tmp as a temporary variable.
+  5. The string s is now reversed.
+
+
+Pseudocode
+----------	
+function name: _atoa_f
+location: _atoa_f.c file
+description: Converts an integer to a string.
+
+Steps:
+1. Declare a character pointer 'str_v' and allocate memory for it using malloc.
+   - The size of the allocated memory should be equal to the length of the number converted to a string, obtained from the function 'numberlen_f'.
+2. Declare an integer variable 'is_neg_v' and set it to 0.
+3. Declare an integer variable 'i_v' and set it to 0.
+4. Check if the input 'num' is equal to 0:
+   a. If true, set the first character of 'str_v' to '0' and the second character to '\0'.
+   b. Return 'str_v'.
+5. Check if the input 'num' is less than 0:
+   a. If true, set 'is_neg_v' to 1 and change 'num' to its absolute value by multiplying it by -1.
+6. Start a loop:
+   a. Set the current character of 'str_v' at index 'i_v' to the remainder of 'num' divided by 10, added to '0' to convert it to the corresponding character.
+   b. Divide 'num' by 10.
+   c. Increment 'i_v' by 1.
+   d. Repeat steps a-c until 'num' becomes 0.
+7. Check if 'is_neg_v' is true (1):
+   a. If true, set the character at index 'i_v' of 'str_v' to '-'.
+   b. Increment 'i_v' by 1.
+8. Reverse the string 'str_v' using the function 'rev_string_f'.
+9. Set the character at index 'i_v' of 'str_v' to '\0'.
+10. Return 'str_v'.
+
+
+Pseudocode
+----------	
+function name: slice_f
+location: handle_variable_f.c file
+description: Slices a given string.
+
+Steps:
+  1. Declare variables: i_v (unsigned int), j_v (unsigned int).
+  2. Initialize j_v to 0.
+  3. Iterate from start to end (inclusive) using i_v:
+     a. Assign the character at index i_v in the string to buff at index j_v.
+     b. Increment j_v by 1.
+  4. Assign null terminator '\0' to buff at index j_v.
+
+
+Pseudocode
+----------	
+function name: handle_variable_f
+location: handle_variable_f.c file
+description: Handles variables replacement.
+
+Steps:
+  1. Declare variables: command (pointer to string), buff (pointer to string),
+     pid (pointer to string), value (pointer to string), size (unsigned int).
+  2. Get the command from args and assign it to the command variable.
+  3. Calculate the size of the command string using _strlen_f function and assign it to size.
+  4. Check if the command is "echo" using _strcmp_f function. If not, return from the function.
+  5. Allocate memory for buff with size + 1 bytes using malloc.
+  6. Check if the size of the command is 2:
+     a. If true, check the second character of the command:
+        - If it is '?', get the value of the "EXIT_STATUS" environment variable using getenv.
+          - If the value is NULL, print a newline character.
+          - Otherwise, print the value followed by a newline character.
+        - If it is '$', get the current process ID (PID) using _atoa_f and getpid functions.
+          - Print the PID followed by a newline character.
+          - Free the memory allocated for pid.
+  7. If the size of the command is not 2:
+     a. Slice the command string from index 1 to size + 1 using the slice_f function and store it in buff.
+     b. Get the value of the environment variable with the name stored in buff using getenv.
+        - If the value is NULL, print a newline character.
+        - Otherwise, print the value followed by a newline character.
+  8. Free the memory allocated for buff.

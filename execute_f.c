@@ -30,6 +30,11 @@ void execute_f(const char *pathname_v, char **args_v)
 	else
 	{
 		/* Inside parent process*/
-		wait(NULL);
+		int status_v;
+		char *exit_status_v;
+		wait(&status_v);
+		exit_status_v = _atoa_f(WEXITSTATUS(status_v));
+		setenv("EXIT_STATUS", exit_status_v, 1);
+		free(exit_status_v);
 	}
 }
