@@ -25,7 +25,7 @@ void simple_shell(void)
 
 	cpy_env_f(&head_env, &tail_env);
 	/* run the shell */
-	while (terminal_v && st == 0)
+	while (st == 0)
 	{
 		/* skip prompt stage if the user send the command using "|" operator */
 		terminal_v = isatty(STDIN_FILENO);

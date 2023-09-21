@@ -1,5 +1,5 @@
 #include "simple_shell.h"
-
+#include <stdio.h>
 
 /**
  * read_f - reads input from standard input.
@@ -17,7 +17,8 @@ int read_f(char **buffer, list **head_env)
 
 	/* get input from standard input*/
 	*buffer = NULL;
-	num_chars_v = _getline_f(buffer, &size_v, STDIN_FILENO);
+	/*num_chars_v = _getline_f(buffer, &size_v, STDIN_FILENO);*/
+	num_chars_v = getline(buffer, &size_v, stdin);
 
 	/* EOF detection*/
 	if (num_chars_v == -1)
