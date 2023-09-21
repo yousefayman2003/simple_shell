@@ -12,8 +12,7 @@
 
 /* define macros */
 #define env environ
-#define BUFFER_SIZE 512
-#define atoa(x) #x
+#define BUFFER_SIZE 1024
 #define CHECK_DOLLAR_SIGN(s) ((s[0] == '$') ? 1 : 0)
 
 /* export global vaiables */
@@ -34,8 +33,8 @@ void _puts_f(const char *str);
 void print_error_f(char *str, int stat);
 void _env_f();
 void _exit_f(char ***tokens_v, int cnt_v);
-void _cd_f(char ***args, int size);
-void handle_variable_f(char ***args);
+void _echo_f(char **args);
+int _cd_f(char **args, int size);
 ssize_t _getline_f(char **lineptr, size_t *n, int stream);
 
 #endif /* SIMPLE_SHELL_H */

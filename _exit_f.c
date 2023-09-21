@@ -10,7 +10,8 @@ void free_tokens2_f(char ***tokens_v, int cnt_v);
 void _exit_f(char ***tokens_v, int cnt_v)
 {
 	char copy[256];
-	char value;
+	int value;
+
 	if (cnt_v == 2)
 	{
 		_strcpy_f(copy, (*tokens_v)[1]);

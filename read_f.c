@@ -141,12 +141,12 @@ int fcheck_run_f()
 	}
 	else if (_strcmp_f(pathname_v, "cd") == 0)
 	{
-		_cd_f(&tokens_v, cnt_v);
+		_cd_f(tokens_v, cnt_v);
 		return (0);
 	}
-	else if ((cnt_v == 2) && (CHECK_DOLLAR_SIGN(tokens_v[1])))
+	else if (_strcmp_f(pathname_v, "echo") == 0)
 	{
-		handle_variable_f(&tokens_v);
+		_echo_f(tokens_v);
 		return (0);
 	}
 	/* search about the exe file of a command and run it if it's found */

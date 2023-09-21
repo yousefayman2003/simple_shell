@@ -1,13 +1,20 @@
 #include "simple_shell.h"
 
+/* declare functions */
 int numberlen_f(int num);
-void rev_string_f(char *s);
+void rev_string_f(char *s, int l);
 
+/**
+ * _atoa_f - converts a number to a string
+ * @num: number
+ *
+ * Return: Pointer to string
+*/
 char *_atoa_f(int num)
 {
-	char *str_v = malloc(sizeof(char) * numberlen_f(num));
+	char *str_v = malloc(sizeof(char) * (numberlen_f(num) + 1));
     	int is_neg_v = 0, i_v = 0;
-	
+		
 	if (num == 0)
 	{
 		str_v[i_v] = '0';
@@ -21,7 +28,7 @@ char *_atoa_f(int num)
     	}
 
 	/* convert digits to chars in rev order */
-	while (num)
+	while (num) 
 	{
 		str_v[i_v] = num % 10 + '0';
         	num /= 10;
@@ -32,7 +39,7 @@ char *_atoa_f(int num)
 		str_v[i_v++] = '-';
 
 	/* reverse the string */
-	rev_string_f(str_v);
+	rev_string_f(str_v, i_v);
 	str_v[i_v] = '\0';
 	return (str_v);
 }
@@ -47,6 +54,9 @@ int numberlen_f(int num)
 {
 	int i_v = 0;
 
+	if (num == 0)
+		return (1);
+
 	while (num)
 	{
 		num /= 10;
@@ -59,14 +69,12 @@ int numberlen_f(int num)
 /**
  * rev_string_f - reverse a given string
  * @s: pointer to string
+ * @l: length of the string
 */
-void rev_string_f(char *s)
+void rev_string_f(char *s, int l)
 {
-	int l = 0, i;
+	int i;
 	char tmp;
-
-	while (s[l] != '\0')
-		l++;
 
 	for (i = 0; i < l / 2; i++)
 	{

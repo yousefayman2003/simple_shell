@@ -5,46 +5,41 @@
  * @args: pointer to 2D array containing arguments
  * @size: size of the array
 */
-void _cd_f(char ***args, int size)
+int _cd_f(char **args, int size)
 {
-	char *path_v, *buf_v;
-	size_t buf_size_v = 512;
+	char *path_v = NULL, *curr_dir = NULL, buf_v[BUFFER_SIZE];
+	int ch_dir = 0;
+
 	if (size == 1)
 		path_v = getenv("HOME");
-	else if(size == 2)
+	else if (size == 2)
 	{
-		path_v = (*args)[1];
+		path_v = args[1];
 		if (_strcmp_f(path_v, "-") == 0)
 		{
 			path_v = getenv("OLDPWD");
+			_puts_f(path_v);
 			if (!path_v)
 			{
 				print_error_f("cd", 4);
-				return;
+				return (-1);
 			}
 		}
 	}
-	else
+	else if (size > 2)
 	{
 		print_error_f("cd", 2);
-		return;
-	}
-	do
-	{	
-        	buf_v = malloc(sizeof(char) * buf_size_v);
-        	if (!buf_v)
-                	print_error_f("cd", 1);
-		buf_size_v += 100;
-	} while (getcwd(buf_v, buf_size_v) == NULL);
-	if (setenv("OLDPWD", buf_v, 1) == -1)
-		perror("cant set OLDPWD");
-	if (chdir(path_v) == -1)
+		return (-1);
+	}	
+	curr_dir = getcwd(buf_v, BUFFER_SIZE);
+	setenv("OLDPWD", buf_v, 1);
+	ch_dir = chdir(path_v);
+	if (ch_dir == -1)
 	{
 		print_error_f(path_v, 5);
-		free(buf_v);
-		return;
+		return (-1);
 	}
-	if (setenv("PWD", getcwd(buf_v, buf_size_v), 1) == -1)
-		perror("cant set PWD");
-	free(buf_v);
+	curr_dir = getcwd(buf_v, BUFFER_SIZE);
+	setenv("PWD", curr_dir, 1);
+	return (0);
 }
