@@ -58,6 +58,7 @@ void _echo_f(char **args)
 	_putchar_f('\n');
 }
 
+
 /**
  * dollar_sign_found - handle varialbe replacement
  *
@@ -82,6 +83,7 @@ int dollar_sign_found(void)
 		{
 			pid = _atoa_f(getpid());
 			_puts_f(pid);
+			free(pid);
 			j++;
 			flag = 1;
 		}
@@ -133,8 +135,7 @@ int isalphanum_f(int c)
 void char_cat_f(char **s, char c)
 {
 	int len = _strlen_f(*s);
-	char *temp = realloc(*s, len + 2);
-	*s = temp;
+	*s = realloc(*s, len + 2);
 	(*s)[len] = c;
 	(*s)[len + 1] = '\0';
 }

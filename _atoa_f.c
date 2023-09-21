@@ -13,25 +13,25 @@ void rev_string_f(char *s, int l);
 char *_atoa_f(int num)
 {
 	char *str_v = malloc(sizeof(char) * (numberlen_f(num) + 1));
-    	int is_neg_v = 0, i_v = 0;
-		
+	int is_neg_v = 0, i_v = 0;
+
 	if (num == 0)
 	{
 		str_v[i_v] = '0';
 		str_v[i_v + 1] = '\0';
 		return (str_v);
 	}
-    	if (num < 0) 
+	if (num < 0)
 	{
-        	is_neg_v = 1;
-        	num = -num;
-    	}
+		is_neg_v = 1;
+		num = -num;
+	}
 
 	/* convert digits to chars in rev order */
-	while (num) 
+	while (num)
 	{
 		str_v[i_v] = num % 10 + '0';
-        	num /= 10;
+		num /= 10;
 		i_v++;
 	}
 

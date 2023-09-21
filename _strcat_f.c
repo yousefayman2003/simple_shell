@@ -1,12 +1,11 @@
 #include "simple_shell.h"
 
 /**
- * Description: _strcat - append n character from src string to dest string
+ * Description: _strcat_f - append n character from src string to dest string
  *
  * Input:
  *	@dest: [char pointer] --> points to the first char of dest string
  *	@src: [const char pointer] --> points to the first char of src string
- *      @n: [int] The number of character that will be appended from src
  *
  * Return: pointer to the destination string
  */
@@ -26,7 +25,7 @@ char *_strcat_f(char *dest, const char *src)
 		i++;
 		lchar++;
 	}
-	
+
 	dest[lchar] = '\0';
 
 	return (dest);

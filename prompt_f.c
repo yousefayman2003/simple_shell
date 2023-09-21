@@ -5,5 +5,5 @@
 */
 void prompt_f(void)
 {
-	_puts_f("@ ");
+	_puts_f("$ ");
 }
