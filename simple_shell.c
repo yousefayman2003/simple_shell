@@ -34,7 +34,7 @@ void simple_shell(void)
 		/* read and parse the command with EOF handling */
 		read_f(&input, &head_env);
 		/* handle command comments */
-		_strtok_f(input, "#");
+		_strtok_f(input, " #");
 
 		/* validity, and execution stages for empty commands */
 		arr_len = parse_f(&parsed_input, input, " ");
