@@ -15,7 +15,7 @@ int valid_name(char *name);
 void add_env_f(char **command, int len, list **head, list **tail)
 {
 	/* set a new environment variable if the arguments are valid */
-	else if (valid_name(command[1]) == 0 && len == 3)
+	if (valid_name(command[1]) == 0 && len == 3)
 			_setenv_f(head, tail, command[1], command[2]);
 }
 
