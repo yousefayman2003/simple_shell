@@ -1,6 +1,5 @@
 #include "simple_shell.h"
 
-
 /* functions declarations */
 int path_handling(char **, list *);
 
@@ -49,7 +48,7 @@ int path_handling(char **name, list *head_env)
 	struct stat sb_v;
 
 	str_v = _getenv_f(head_env, "PATH");
-	if (!str_v)
+	if (!str_v || *str_v == '\0')
 	{
 		error_handling_f(*name, 127);
 		return (127);
