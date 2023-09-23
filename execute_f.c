@@ -50,5 +50,5 @@ int execute_f(char **args_v, int len, list **head_env, list **tail_env)
 	exit_st = _atoa_f(WEXITSTATUS(st));
 	_setenv_f(head_env, tail_env, "EXIT_STATUS", exit_st);
 	free(exit_st);
-	return (0);
+	return (WEXITSTATUS(st));
 }

@@ -25,7 +25,7 @@ void simple_shell(void)
 
 	cpy_env_f(&head_env, &tail_env);
 	/* run the shell */
-	while (st == 0 || st == 127)
+	while (1)
 	{
 		/* skip prompt stage if the user send the command using "|" operator */
 		terminal_v = isatty(STDIN_FILENO);
@@ -83,12 +83,15 @@ void free_shell(void)
  */
 void handle_exit(void)
 {
+	int exit_st;
 	if (_strcmp_f(parsed_input[0], "exit") == 0)
 	{
-		st = _exit_f(parsed_input, arr_len);
+		exit_st = _exit_f(parsed_input, arr_len);
 		free_list_f(&head_env);
 		cm_st = 0;
 		free_shell();
-		exit(st);
+		if (exit_st == EXIT_SUCCESS)
+			exit(st);
+		exit(exit_st);
 	}
 }
