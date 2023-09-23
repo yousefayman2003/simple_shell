@@ -22,7 +22,6 @@ void cpy_env_f(list **head, list **tail)
 
 		name = _strtok_f(name, "=");
 		value = _strtok_f(NULL, "");
-
 		_setenv_f(head, tail, name, value);
 		free(name);
 

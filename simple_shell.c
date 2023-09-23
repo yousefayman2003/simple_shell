@@ -25,14 +25,14 @@ void simple_shell(void)
 
 	cpy_env_f(&head_env, &tail_env);
 	/* run the shell */
-	while (st == 0)
+	while (st == 0 || st == 127)
 	{
 		/* skip prompt stage if the user send the command using "|" operator */
 		terminal_v = isatty(STDIN_FILENO);
 		if (terminal_v)
 			prompt_f();
 		/* read and parse the command with EOF handling */
-		read_f(&input, &head_env);
+		read_f(&input, &head_env, st);
 		/* handle command comments */
 		_strtok_f(input, " #");
 
@@ -44,11 +44,11 @@ void simple_shell(void)
 			handle_exit();
 			/* check the validity of the command */
 			cm_st = valid_command_f(parsed_input, head_env);
+			st = cm_st;
 			/* if the command is valid run it */
 			if (cm_st == 0 || cm_st == 1)
 				st = execute_f(parsed_input, arr_len, &head_env, &tail_env);
 			free_shell();
-			st = (st == 127) ? 0 : st;
 		}
 		else
 		{

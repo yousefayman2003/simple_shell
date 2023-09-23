@@ -43,7 +43,7 @@ int _setenv_f(list **head, list **tail, char *name, char *value);
 int parse_f(char ***buffer, char *input, const char *delim);
 int valid_command_f(char **command, list *head_env);
 int _strcmp_f(const char *s1, const char *s2);
-int read_f(char **buffer, list **head_env);
+int read_f(char **buffer, list **head_env, int l_err);
 int _exit_f(char **tokens_v, int cnt_v);
 int _env_f(int args_n, list *head);
 int built_in_cm(char **command);

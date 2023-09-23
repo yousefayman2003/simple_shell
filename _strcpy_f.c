@@ -12,6 +12,11 @@ char *_strcpy_f(char *dest, const char *src)
 {
 	int i_v = -1;
 
+	if (src == NULL)
+	{
+		dest = NULL;
+		return (dest);
+	}
 	do {
 		i_v++;
 		dest[i_v] = src[i_v];

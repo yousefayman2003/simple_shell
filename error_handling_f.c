@@ -47,9 +47,9 @@ void error_handling_f(char *str, int stat)
 			pstr_err("\n");
 			break;
 		case 127:
-			pstr_err("simple_shell: ");
+			pstr_err("./hsh: 1: ");
 			pstr_err(str);
-			pstr_err(": command not found\n");
+			pstr_err(": not found\n");
 			break;
 	}
 }

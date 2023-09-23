@@ -5,12 +5,13 @@
  * read_f - reads input from standard input.
  * @buffer: a buffer to store the user input in it
  * @head_env: the head pointer of environment variables linked list
+ * @l_err: the last errno in the simple shell
  *
  * Return:
  *	num_chars_v on success
  *	-1 on failure
 */
-int read_f(char **buffer, list **head_env)
+int read_f(char **buffer, list **head_env, int l_err)
 {
 	int num_chars_v;
 	size_t size_v = 0;
@@ -26,7 +27,7 @@ int read_f(char **buffer, list **head_env)
 		free(*buffer);
 		free_list_f(head_env);
 		write(0, "exit\n", 6);
-		exit(EXIT_SUCCESS);
+		exit(l_err);
 	}
 
 	(*buffer)[num_chars_v - 1] = '\0';
