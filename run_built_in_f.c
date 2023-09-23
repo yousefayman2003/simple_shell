@@ -27,10 +27,7 @@ int run_built_in(char **command, int len, list **head_env, list **tail_env)
 	else if (_strcmp_f(*command, "unsetenv") == 0)
 	{
 		if (len != 2)
-		{
-			error_handling_f("simple shell: unsetenv: Invalid number of arguments", 0);
 			return (0);
-		}
 		_unsetenv_f(head_env, tail_env, command[1]);
 	}
 

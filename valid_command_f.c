@@ -48,7 +48,7 @@ int path_handling(char **name, list *head_env)
 	struct stat sb_v;
 
 	str_v = _getenv_f(head_env, "PATH");
-	if (!str_v || *str_v == '\0')
+	if (!str_v || *str_v != '\\')
 	{
 		error_handling_f(*name, 127);
 		return (127);

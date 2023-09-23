@@ -14,30 +14,12 @@ int valid_name(char *name);
  */
 void add_env_f(char **command, int len, list **head, list **tail)
 {
-	/* print the environment variables */
-	if (len == 1)
-	{
-		_env_f(len, *head);
-		return;
-	}
-
 	/* set a new environment variable if the arguments are valid */
 	if (valid_name(command[1]) == 0)
 	{
-		switch (len)
-		{
-			case 2:
-				_setenv_f(head, tail, command[1], "");
-				break;
-			case 3:
-				_setenv_f(head, tail, command[1], command[2]);
-				break;
-			default:
-				error_handling_f("setenv", 2);
-		}
-		return;
+		if (len == 3)
+			_setenv_f(head, tail, command[1], command[2]);
 	}
-	error_handling_f("simple shell: setenv: Invalid variable name", 0);
 }
 
 

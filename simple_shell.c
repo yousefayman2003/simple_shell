@@ -84,6 +84,7 @@ void free_shell(void)
 void handle_exit(void)
 {
 	int exit_st;
+
 	if (_strcmp_f(parsed_input[0], "exit") == 0)
 	{
 		exit_st = _exit_f(parsed_input, arr_len);
