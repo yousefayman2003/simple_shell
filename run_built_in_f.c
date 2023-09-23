@@ -24,12 +24,8 @@ int run_built_in(char **command, int len, list **head_env, list **tail_env)
 		add_env_f(command, len, head_env, tail_env);
 
 	/* unsetenv command */
-	else if (_strcmp_f(*command, "unsetenv") == 0)
-	{
-		if (len != 2)
-			return (0);
+	else if (_strcmp_f(*command, "unsetenv") == 0 && len == 2)
 		_unsetenv_f(head_env, tail_env, command[1]);
-	}
 
 	/* cd command */
 	else if (_strcmp_f(*command, "cd") == 0)

@@ -14,12 +14,12 @@ int valid_name(char *name);
  */
 void add_env_f(char **command, int len, list **head, list **tail)
 {
+	/* display the environments variables */
+	if (len == 1)
+		_env_f(1, *head);
 	/* set a new environment variable if the arguments are valid */
-	if (valid_name(command[1]) == 0)
-	{
-		if (len == 3)
+	else if (valid_name(command[1]) == 0 && len == 3)
 			_setenv_f(head, tail, command[1], command[2]);
-	}
 }
 
 
