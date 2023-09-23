@@ -20,7 +20,7 @@ int run_built_in(char **command, int len, list **head_env, list **tail_env)
 		return (_env_f(len, *head_env));
 
 	/* setenv command */
-	else if (_strcmp_f(*command, "setenv") == 0)
+	else if (_strcmp_f(*command, "setenv") == 0 && len == 3)
 		add_env_f(command, len, head_env, tail_env);
 
 	/* unsetenv command */
