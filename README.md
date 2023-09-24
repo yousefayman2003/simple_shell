@@ -10,6 +10,8 @@ The shell allows you to execute various commands and perform operations similar 
 We are proud to share that our simple shell implementation is memory leak-free, demonstrating our commitment to producing high-quality code.
 We preferred to reimplement most of the built-in functions that we needed in the project.
 
+If you're interested, you can watch the [video](https://youtu.be/OHwY6gy4zic?si=j6qegC03vZwvCp4e) showcasing our simple shell program in action. The video demonstrates the functionality and performance of our implementation, further highlighting the success of our teamwork and the quality of the project.
+
 
 ## Features
 
