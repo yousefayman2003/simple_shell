@@ -1,13 +1,14 @@
 <h1 align=center> Unix-like Simple Shell Project </h1>
 <p align=center>
+  <img height=500 src="./Unix-Like Simple Shell Design.jpeg"/>
   <img height=500 src="https://www.juliensobczak.com/posts_resources/2021-08-10-linux-system-calls-under-the-hood/system-calls.png"/>
 </p>
 
 ## Introduction
-This is a Unix-Like Simple Shell project, developed by [Mohammed Mustafa](https://www.linkedin.com/in/mohammedmustafa112025/) and [Yousef Ayman](https://www.linkedin.com/in/yousef-ayman/) using C system calls. It provides a basic command-line interface for interacting with the operating system.
+This is a Unix-like Simple Shell project, developed by [Mohammed Mustafa](https://www.linkedin.com/in/mohammedmustafa112025/) and [Yousef Ayman](https://www.linkedin.com/in/yousef-ayman/) using C system calls. It provides a basic command-line interface for interacting with the operating system.
 The shell allows you to execute various commands and perform operations similar to a traditional Unix shell.
 We are proud to share that our simple shell implementation is memory leak-free, demonstrating our commitment to producing high-quality code.
-We prefered to reimplement most of built-in functions that we need it in the project.
+We preferred to reimplement most of the built-in functions that we needed in the project.
 
 
 ## Features
