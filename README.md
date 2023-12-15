@@ -24,8 +24,8 @@ If you're interested, you can watch the [video](https://youtu.be/OHwY6gy4zic?si=
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/your-username/simple-shell.git`
-2. Change to the project directory: `cd simple_shell`
+1. Clone the repository: `git clone .git`
+2. Change to the project directory: https://github.com/yousefayman2003/simple_shell.git
 3. Compile the shell program: `gcc *.c -o shell`
 4. Run the shell: `./shell`
 
